@@ -1,18 +1,38 @@
 <html>
 
+<head>
+    <title>Andrei Li - HW2 Spawn</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
 <script id="vertex-shader" type="x-shader/x-vertex">
     attribute  vec4 vPosition;
     attribute  vec4 vColor;
     varying vec4 fColor;
     
     uniform mat4 modelView;
-     
+    uniform float vKft;
     
     void main() 
     {
         gl_PointSize = 10.0;
         gl_Position = modelView*vPosition;
-        fColor = vColor;
+
+        bool origin = false;
+        if((modelView[0][0] == modelView[1][1]) && 
+            (modelView[0][0] == modelView[2][2])) {
+                origin = true;
+        }
+
+        float fadeStart = .75;
+        if ((vKft > fadeStart) && !origin) {
+            float red = vColor.x + (1.0-vColor.x) * (vKft-fadeStart)/.2;
+            float green = vColor.y + (1.0-vColor.y) * (vKft-fadeStart)/.2;
+            float blue = vColor.z + (1.0-vColor.z) * (vKft-fadeStart)/.2;
+            fColor = vec4(red, green, blue, 1.0);
+        } else {
+            fColor = vColor;
+        }
     } 
 </script>
 
@@ -36,18 +56,34 @@ main()
 <script type="text/javascript" src="Spawn.js"></script>
 
 <body>
-    <canvas id="gl-canvas" width="512"" height=" 512">
-        Oops ... your browser doesn't support the HTML5 canvas element
-    </canvas>
+    <div class="content">
+        <h1>CSE470 HW2: Spawn</h1>
+        <h2>Andrei Li - 2/22/2023</h2>
+        <p>
+            Spinning cube animation that spawns cubes from the origin that travel radially
+            outwards and rotate about their direction. Animation can be toggled by clicking
+            on the origin cube.
 
-    <br />
-    Scale:
-    <input type="range" min="1" max="5" value="5" id="scaleSlider">
-    <br />
-    Speed:
-    <input type="range" min="1" max="5" value="5" id="speedSlider">
-
-
+        </p>
+        <div class="canvasContainer">
+            <canvas id="gl-canvas" width="512"" height=" 512">
+                Oops ... your browser doesn't support the HTML5 canvas element
+            </canvas>
+            <div class="optionContainer">
+                # of Cubes:
+                <input type="number" min="9" max="18" value="9" id="numSlider">
+                <br />
+                Scale:
+                <input type="range" min="1" max="10" value="5" id="scaleSlider">
+                <br />
+                Speed:
+                <input type="range" min="1" max="100" value="10" id="speedSlider">
+                <br />
+                # of Rotations:
+                <input type="range" min="1" max="5" value="1" id="rotSlider">
+            </div>
+        </div>
+    </div>
 </body>
 
 </html>

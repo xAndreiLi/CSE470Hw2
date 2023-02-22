@@ -1,8 +1,5 @@
 
-var numVertices = 8;
-var numTriangles = 12;
-
-
+var numVertices = 36;
 
 var vertices = [
 	vec3( 0.0, 0.0,  0.0),
@@ -17,14 +14,14 @@ var vertices = [
 
 // Create your own colors!!
 var vertexColors = [
-        [ 0.5, 0.3, 0.0, 1.0 ],   
-        [ 1.0, 0.4, 0.3, 1.0 ],   
-        [ 1.0, 1.0, 0.2, 1.0 ],   
-        [ 0.3, 1.0, 0.5, 1.0 ],   
-        [ 0.1, 0.1, 0.3, 1.0 ],   
-        [ 0.7, 0.3, 1.0, 1.0 ],  
-        [ 0.0, 0.7, 0.6, 1.0 ],   
-        [ 0.2, 1.0, 1.0, 1.0 ]   
+        rgb(0, 71, 119),   
+        rgb(163, 0, 0),   
+        rgb(255, 119, 0),   
+        rgb(239, 210, 141),   
+        rgb(0, 175, 181),   
+        rgb(195, 122, 192),  
+        rgb(155, 126, 222),  
+        rgb(42, 61, 69),  
 ];
 
 	
@@ -61,5 +58,11 @@ function quad(a, b, c, d)
     }
 }
 
+function rgb(red, green, blue) {
+    let r = red/255;
+    let g = green/255;
+    let b = blue/255;
+    return [r, g, b, 1.0]
+}
 
 
